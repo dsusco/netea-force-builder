@@ -1,5 +1,6 @@
 <script>
   import armyList from '$lib/army-list.svelte.js';
+  import force from '$lib/force.svelte.js';
 
   let
     { name } = $props(),
@@ -7,7 +8,7 @@
 </script>
 
 <div class="formation">
-  <button class="add" type="button">+</button>
+  <button class="add" onclick={() => force.addFormation(name)} type="button">+</button>
   <span class="name">{name}</span>
   <span class="cost">{cost}</span>
 </div>
