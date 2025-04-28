@@ -1,0 +1,152 @@
+{
+  "name": "Codex Astartes Space Marine",
+  "formationTypes": {
+    "Space Marine Detachment": {
+      "formations": ["Assault", "Bike", "Devastator", "Land Raider", "Land Speeder", "Landing Craft", "Predator", "Scout", "Strike Cruiser", "Tactical", "Terminator", "Vindicator", "Whirlwind"]
+    },
+    "Imperial Ally and Space Marine Aircraft": {
+      "formations": ["Marauder Squadron", "Thunderbolt Squadron", "Reaver", "Warhound", "Warhound Pack", "Warlord", "Thunderhawk Gunship"],
+      "validations": [
+        { "type": "forceLimit", "on": "points", "limit": "1/3" }
+      ]
+    }
+  },
+  "formations": {
+    "Assault": {
+      "upgrades": ["Commander", "Vindicators"],
+      "cost": 175
+    },
+    "Bike": {
+      "upgrades": ["Commander"],
+      "cost": 200
+    },
+    "Devastator": {
+      "upgrades": ["Commander", "Dreadnoughts", "Hunter", "Land Raiders", "Razorbacks"],
+      "cost": 250
+    },
+    "Land Raider": {
+      "upgrades": ["Commander", "Hunter", "Vindicators"],
+      "cost": 325
+    },
+    "Land Speeder": {
+      "upgrades": ["Commander", "Typhoons"],
+      "cost": 200
+    },
+    "Landing Craft": {
+      "cost": 350
+    },
+    "Predator": {
+      "upgrades": ["Commander", "Hunter", "Vindicators"],
+      "cost": 250
+    },
+    "Scout": {
+      "upgrades": ["Commander", "Razorbacks", "Snipers"],
+      "cost": 150
+    },
+    "Strike Cruiser": {
+      "upgrades": ["Battle Barge"],
+      "cost": 200,
+      "validations": [
+        { "type": "forceLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Tactical": {
+      "upgrades": ["Commander", "Dreadnoughts", "Hunter", "Land Raiders", "Razorbacks", "Vindicators"],
+      "cost": 275
+    },
+    "Terminator": {
+      "upgrades": ["Commander", "Dreadnoughts", "Land Raiders", "Vindicators"],
+      "cost": 350
+    },
+    "Vindicator": {
+      "upgrades": ["Commander", "Hunter"],
+      "cost": 225
+    },
+    "Whirlwind": {
+      "upgrades": ["Commander", "Hunter"],
+      "cost": 275
+    },
+    "Marauder Squadron": {
+      "cost": 250
+    },
+    "Thunderbolt Squadron": {
+      "cost": 175
+    },
+    "Reaver": {
+      "cost": 650
+    },
+    "Warhound": {
+      "cost": 275
+    },
+    "Warhound Pack": {
+      "cost": 500
+    },
+    "Warlord": {
+      "cost": 825
+    },
+    "Thunderhawk Gunship": {
+      "cost": 200
+    }
+  },
+  "upgrades": {
+    "Battle Barge": {
+      "cost": "+150",
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Commander": {
+      "cost": {
+        "captain": "+50",
+        "chaplain": "+50",
+        "librarian": "+50",
+        "supreme-commander": "+100"
+      },
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Dreadnoughts": {
+      "cost": "+50",
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Hunter": {
+      "cost": "+75",
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Land Raiders": {
+      "cost": ["+75", "+125"],
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Razorbacks": {
+      "cost": "+25",
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Snipers": {
+      "cost": "+10",
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Typhoons": {
+      "cost": "+10",
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    },
+    "Vindicators": {
+      "cost": ["+50", "+75"],
+      "validations": [
+        { "type": "formationLimit", "on": "count", "limit": 1 }
+      ]
+    }
+  }
+}
