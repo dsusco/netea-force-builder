@@ -4,12 +4,13 @@
 
   let
     { name } = $props(),
-    { cost } = armyList.formation(name);
+    { cost } = armyList.formation(name),
+    aggregator = force.formationAggregators[name];
 </script>
 
 <div class="formation">
   <button class="add" onclick={() => force.addFormation(name)} type="button">+</button>
-  <span class="name">{name}</span>
+  <span class="name">{name} [{aggregator.count}] ({aggregator.points})</span>
   <span class="cost">{cost}</span>
 </div>
 
