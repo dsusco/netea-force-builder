@@ -1,5 +1,6 @@
 <script>
   import armyList from '$lib/army-list.svelte.js';
+  import FormationType from '$lib/components/army-list/formation-type.svelte';
 </script>
 
 <div class="force-builder">
@@ -7,6 +8,10 @@
     <div class="title">
       <span class="name">{armyList.name} Army List</span>
     </div>
+
+    {#each armyList.formationTypes as name}
+      <FormationType {name} />
+    {/each}
   </div>
 
   <div>
