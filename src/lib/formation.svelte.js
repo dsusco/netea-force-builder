@@ -29,15 +29,8 @@ class Formation {
     return points;
   });
 
-  upgradeAggregators = $derived.by(() => {
-    const aggregators = {};
-
-    for (const name of this.allowedUpgrades) {
-      aggregators[name] = new FormationUpgradeAggregator(this.id, name);
-    }
-
-    return aggregators;
-  });
+  upgradeAggregators = $derived(Object.fromEntries(
+    this.allowedUpgrades.map((name) => [name, new FormationUpgradeAggregator(this.id, name)])));
 
   get id () {
     return this.#id;
