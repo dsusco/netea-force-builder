@@ -2,14 +2,14 @@ import force from '$lib/force.svelte.js';
 import Aggregator from '$lib/classes/aggregators/aggregator.svelte.js';
 
 class FormationTypeAggregator extends Aggregator {
-  #name;
+  #formationType;
 
-  constructor (name) {
+  constructor (formationType) {
     super();
-    this.#name = name;
+    this.#formationType = formationType;
   }
 
-  subjects = $derived(force.formations.filter(({ type }) => this.#name === type));
+  subjects = $derived(force.formations.filter(({ type }) => this.#formationType === type));
 }
 
 export default FormationTypeAggregator;

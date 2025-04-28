@@ -7,6 +7,8 @@
         name,
         allowedUpgrades,
         upgrades,
+        points,
+        upgradeAggregators,
         addUpgrade,
         removeUpgrade } = $props();
 </script>
@@ -15,6 +17,7 @@
   <div class="title">
     <button class="remove" onclick={() => force.removeFormation(id)} type="button">-</button>
     <span class="name">{name}</span>
+    <span class="points">{points}</span>
   </div>
 
   <div class="upgrades">
@@ -25,7 +28,7 @@
 
   <div class="allowed-upgrades">
     {#each allowedUpgrades as name}
-      <Upgrade {name} addUpgrade={() => addUpgrade(name)} />
+      <Upgrade {name} aggregator={upgradeAggregators[name]} addUpgrade={() => addUpgrade(name)} />
     {/each}
   </div>
 </div>

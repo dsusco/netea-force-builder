@@ -3,6 +3,7 @@ import Formation from '$lib/classes/formation.svelte.js';
 import ForceAggregator from '$lib/classes/aggregators/force-aggregator.svelte.js';
 import FormationTypeAggregator from '$lib/classes/aggregators/formation-type-aggregator.svelte.js';
 import FormationAggregator from '$lib/classes/aggregators/formation-aggregator.svelte.js';
+import UpgradeAggregator from '$lib/classes/aggregators/upgrade-aggregator.svelte.js';
 
 class Force {
   #aggregator = new ForceAggregator();
@@ -33,6 +34,16 @@ class Force {
 
     for (const name of armyList.formations) {
       aggregators[name] = new FormationAggregator(name);
+    }
+
+    return aggregators;
+  });
+
+  upgradeAggregators = $derived.by(() => {
+    const aggregators = {};
+
+    for (const name of armyList.upgrades) {
+      aggregators[name] = new UpgradeAggregator(name);
     }
 
     return aggregators;
