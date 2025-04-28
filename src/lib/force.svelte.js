@@ -1,9 +1,9 @@
 import armyList from '$lib/army-list.svelte.js';
-import Formation from '$lib/classes/formation.svelte.js';
-import ForceAggregator from '$lib/classes/aggregators/force-aggregator.svelte.js';
-import FormationTypeAggregator from '$lib/classes/aggregators/formation-type-aggregator.svelte.js';
-import FormationAggregator from '$lib/classes/aggregators/formation-aggregator.svelte.js';
-import UpgradeAggregator from '$lib/classes/aggregators/upgrade-aggregator.svelte.js';
+import Formation from '$lib/formation.svelte.js';
+import ForceAggregator from '$lib/aggregators/force-aggregator.svelte.js';
+import FormationTypeAggregator from '$lib/aggregators/formation-type-aggregator.svelte.js';
+import FormationAggregator from '$lib/aggregators/formation-aggregator.svelte.js';
+import UpgradeAggregator from '$lib/aggregators/upgrade-aggregator.svelte.js';
 
 class Force {
   #aggregator = new ForceAggregator();
@@ -19,35 +19,14 @@ class Force {
 
   formations = $state([]);
 
-  formationTypeAggregators = $derived.by(() => {
-    const aggregators = {};
+  formationTypeAggregators = $derived(Object.fromEntries(
+    armyList.formationTypes.map((name) => [name, new FormationTypeAggregator(name)])));
 
-    for (const name of armyList.formationTypes) {
-      aggregators[name] = new FormationTypeAggregator(name);
-    }
+  formationAggregators = $derived(Object.fromEntries(
+    armyList.formations.map((name) => [name, new FormationAggregator(name)])));
 
-    return aggregators;
-  });
-
-  formationAggregators = $derived.by(() => {
-    const aggregators = {};
-
-    for (const name of armyList.formations) {
-      aggregators[name] = new FormationAggregator(name);
-    }
-
-    return aggregators;
-  });
-
-  upgradeAggregators = $derived.by(() => {
-    const aggregators = {};
-
-    for (const name of armyList.upgrades) {
-      aggregators[name] = new UpgradeAggregator(name);
-    }
-
-    return aggregators;
-  });
+  upgradeAggregators = $derived(Object.fromEntries(
+    armyList.upgrades.map((name) => [name, new UpgradeAggregator(name)])));
 
   get count () {
     return this.#aggregator.count;

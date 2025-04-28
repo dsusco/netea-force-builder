@@ -1,5 +1,5 @@
 import force from '$lib/force.svelte.js';
-import Aggregator from '$lib/classes/aggregators/aggregator.svelte.js';
+import Aggregator from '$lib/aggregators/aggregator.svelte.js';
 
 class FormationTypeAggregator extends Aggregator {
   #formationType;

@@ -1,6 +1,6 @@
 import armyList from '$lib/army-list.svelte.js';
-import Upgrade from '$lib/classes/upgrade.svelte.js';
-import FormationUpgradeAggregator from '$lib/classes/aggregators/formation-upgrade-aggregator.svelte.js';
+import Upgrade from '$lib/upgrade.svelte.js';
+import FormationUpgradeAggregator from '$lib/aggregators/formation-upgrade-aggregator.svelte.js';
 
 class Formation {
   #id;
