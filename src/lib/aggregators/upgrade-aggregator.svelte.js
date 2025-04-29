@@ -2,18 +2,15 @@ import force from '$lib/force.svelte.js';
 import Aggregator from '$lib/aggregators/aggregator.svelte.js';
 
 class UpgradeAggregator extends Aggregator {
-  #upgradeName;
-
-  constructor (upgradeName) {
-    super();
-    this.#upgradeName = upgradeName;
+  constructor (part) {
+    super(part);
   }
 
   subjects = $derived.by(() => {
     const subjects = [];
 
     for (const { upgrades } of force.formations) {
-      subjects.push(...upgrades.filter(({ name }) => this.#upgradeName === name));
+      subjects.push(...upgrades.filter(({ name }) => this.part.name === name));
     }
 
     return subjects;

@@ -7,7 +7,7 @@
     "Imperial Ally and Space Marine Aircraft": {
       "formations": ["Marauder Squadron", "Thunderbolt Squadron", "Reaver", "Warhound", "Warhound Pack", "Warlord", "Thunderhawk Gunship"],
       "validations": [
-        { "type": "forceLimit", "on": "points", "limit": "1/3" }
+        { "type": "comparison", "on": "points", "operator": "<=", "value": "1/3" }
       ]
     }
   },
@@ -47,7 +47,7 @@
       "upgrades": ["Battle Barge"],
       "cost": 200,
       "validations": [
-        { "type": "forceLimit", "on": "count", "limit": 1 }
+        { "type": "comparison", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Tactical": {
@@ -92,7 +92,7 @@
     "Battle Barge": {
       "cost": "+150",
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
+        { "type": "comparison", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Commander": {
@@ -103,49 +103,41 @@
         "supreme-commander": "+100"
       },
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     },
     "Dreadnoughts": {
       "cost": "+50",
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     },
     "Hunter": {
       "cost": "+75",
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     },
     "Land Raiders": {
       "cost": ["+75", "+125"],
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     },
     "Razorbacks": {
       "cost": "+25",
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     },
     "Snipers": {
       "cost": "+10",
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     },
     "Typhoons": {
       "cost": "+10",
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     },
     "Vindicators": {
       "cost": ["+50", "+75"],
       "validations": [
-        { "type": "formationLimit", "on": "count", "limit": 1 }
       ]
     }
   }

@@ -1,13 +1,14 @@
 <script>
   import armyList from '$lib/army-list.svelte.js';
-  import force from '$lib/force.svelte.js';
+  import aggregators from '$lib/aggregators.svelte.js';
 
   let
     { name,
       aggregator,
       addUpgrade } = $props(),
-    { costString } = armyList.upgrade(name),
-    forceAggregator = force.upgradeAggregators[name];
+    { costString,
+      type } = armyList.upgrade(name),
+    forceAggregator = aggregators.forUpgrade(name);
 </script>
 
 <div class="upgrade">

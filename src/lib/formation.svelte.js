@@ -1,23 +1,24 @@
 import armyList from '$lib/army-list.svelte.js';
 import Upgrade from '$lib/upgrade.svelte.js';
-import FormationUpgradeAggregator from '$lib/aggregators/formation-upgrade-aggregator.svelte.js';
 
 class Formation {
   #id;
   #name;
   #allowedUpgrades;
   #cost;
-  #type;
+  #formationType;
 
   constructor (formation) {
     this.#id = crypto.randomUUID();
     this.#name = formation.name;
     this.#allowedUpgrades = formation.upgrades;
     this.#cost = formation.cost;
-    this.#type = formation.formationType;
+    this.#formationType = formation.formationType;
   }
 
   upgrades = $state([]);
+
+  count = $derived(this.upgrades.length);
 
   points = $derived.by(() => {
     let points = +this.#cost;
@@ -28,9 +29,6 @@ class Formation {
 
     return points;
   });
-
-  upgradeAggregators = $derived(Object.fromEntries(
-    this.allowedUpgrades.map((name) => [name, new FormationUpgradeAggregator(this.id, name)])));
 
   get id () {
     return this.#id;
@@ -44,8 +42,8 @@ class Formation {
     return this.#allowedUpgrades;
   }
 
-  get type () {
-    return this.#type;
+  get formationType () {
+    return this.#formationType;
   }
 
   addUpgrade (name) {

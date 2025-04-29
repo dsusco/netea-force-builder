@@ -1,16 +1,17 @@
 <script>
   import force from '$lib/force.svelte.js';
+  import aggregators from '$lib/aggregators.svelte.js';
   import Upgrade from '$lib/components/army-list/upgrade.svelte';
   import FormationUpgrade from '$lib/components/force/upgrade.svelte';
 
-  let { id,
-        name,
-        allowedUpgrades,
-        upgrades,
-        points,
-        upgradeAggregators,
-        addUpgrade,
-        removeUpgrade } = $props();
+  let
+    { id,
+      name,
+      allowedUpgrades,
+      upgrades,
+      points,
+      addUpgrade,
+      removeUpgrade } = $props();
 </script>
 
 <div class="formation">
@@ -28,7 +29,7 @@
 
   <div class="allowed-upgrades">
     {#each allowedUpgrades as name}
-      <Upgrade {name} aggregator={upgradeAggregators[name]} addUpgrade={() => addUpgrade(name)} />
+      <Upgrade {name} aggregator={aggregators.forFormationUpgrade(id, name)} addUpgrade={() => addUpgrade(name)} />
     {/each}
   </div>
 </div>

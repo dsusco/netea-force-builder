@@ -1,13 +1,7 @@
 import armyList from '$lib/army-list.svelte.js';
 import Formation from '$lib/formation.svelte.js';
-import ForceAggregator from '$lib/aggregators/force-aggregator.svelte.js';
-import FormationTypeAggregator from '$lib/aggregators/formation-type-aggregator.svelte.js';
-import FormationAggregator from '$lib/aggregators/formation-aggregator.svelte.js';
-import UpgradeAggregator from '$lib/aggregators/upgrade-aggregator.svelte.js';
 
 class Force {
-  #aggregator = new ForceAggregator();
-
   constructor () {
     $effect.root(() => {
       $effect(() => {
@@ -19,22 +13,18 @@ class Force {
 
   formations = $state([]);
 
-  formationTypeAggregators = $derived(Object.fromEntries(
-    armyList.formationTypes.map((name) => [name, new FormationTypeAggregator(name)])));
+  count = $derived(this.formations.length);
 
-  formationAggregators = $derived(Object.fromEntries(
-    armyList.formations.map((name) => [name, new FormationAggregator(name)])));
+  points = $derived.by(() => {
+    let points = 0;
 
-  upgradeAggregators = $derived(Object.fromEntries(
-    armyList.upgrades.map((name) => [name, new UpgradeAggregator(name)])));
+    for (const { points: formationPoints } of this.formations) {
+      points += formationPoints;
+    }
 
-  get count () {
-    return this.#aggregator.count;
-  }
+    return points;
+  });
 
-  get points () {
-    return this.#aggregator.points;
-  }
 
   addFormation (name) {
     this.formations.push(new Formation(armyList.formation(name)));

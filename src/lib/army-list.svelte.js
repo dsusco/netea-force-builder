@@ -3,7 +3,17 @@ import { costToNumber, costToString } from '$lib/utilities/cost-formatters.js';
 class ArmyList {
   #json = $state({});
 
-  #formationTypes = $derived(this.#json.formationTypes);
+  #formationTypes = $derived.by(() => {
+    const formationTypes = {};
+
+    for (const [name, formationType] of Object.entries(this.#json.formationTypes)) {
+      formationTypes[name] = formationType;
+      formationTypes[name].type = 'formationType';
+      formationTypes[name].validations ||= [];
+    }
+
+    return formationTypes;
+  });
 
   #formations = $derived.by(() => {
     const formations = {};
@@ -13,6 +23,9 @@ class ArmyList {
         if (formations[name] === undefined) {
           formations[name] = this.#json.formations[name];
           formations[name].formationType = formationType;
+          formations[name].type = 'formation';
+          formations[name].upgrades ||= [];
+          formations[name].validations ||= [];
         }
       }
     }
@@ -27,6 +40,8 @@ class ArmyList {
       upgrades[name] = upgrade;
       upgrades[name].costNumber = costToNumber(upgrade.cost);
       upgrades[name].costString = costToString(upgrade.cost);
+      upgrades[name].type = 'upgrade';
+      upgrades[name].validations ||= [];
     }
 
     return upgrades;

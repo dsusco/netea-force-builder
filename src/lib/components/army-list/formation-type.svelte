@@ -1,12 +1,13 @@
 <script>
   import armyList from '$lib/army-list.svelte.js';
-  import force from '$lib/force.svelte.js';
+  import aggregators from '$lib/aggregators.svelte.js';
   import Formation from '$lib/components/army-list/formation.svelte';
 
   let
     { name } = $props(),
-    { formations } = armyList.formationType(name),
-    aggregator = force.formationTypeAggregators[name];
+    { formations,
+      type } = armyList.formationType(name),
+    aggregator = aggregators.forFormationType(name);
 </script>
 
 <div class="formation-type">
