@@ -1,6 +1,6 @@
 <script>
-  import armyList from '$lib/army-list.svelte.js';
   import aggregators from '$lib/aggregators.svelte.js';
+  import armyList from '$lib/army-list.svelte.js';
   import force from '$lib/force.svelte.js';
 
   let

@@ -1,18 +1,12 @@
 class Aggregator {
   #part;
-  #parentId;
 
-  constructor (part, parentId) {
+  constructor (part) {
     this.#part = part;
-    this.#parentId = parentId;
   }
 
   get part () {
     return this.#part;
-  }
-
-  get parentId () {
-    return this.#parentId;
   }
 
   subjects = $derived([]);

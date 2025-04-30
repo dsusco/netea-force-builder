@@ -13,19 +13,6 @@ class Force {
 
   formations = $state([]);
 
-  count = $derived(this.formations.length);
-
-  points = $derived.by(() => {
-    let points = 0;
-
-    for (const { points: formationPoints } of this.formations) {
-      points += formationPoints;
-    }
-
-    return points;
-  });
-
-
   addFormation (name) {
     this.formations.push(new Formation(armyList.formation(name)));
   }

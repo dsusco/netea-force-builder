@@ -1,8 +1,11 @@
 <script>
+  import aggregators from '$lib/aggregators.svelte.js';
   import armyList from '$lib/army-list.svelte.js';
   import force from '$lib/force.svelte.js';
   import FormationType from '$lib/components/army-list/formation-type.svelte';
   import Formation from '$lib/components/force/formation.svelte';
+
+  let aggregator = aggregators.forceAggregator;
 </script>
 
 <div class="force-builder">
@@ -18,7 +21,7 @@
 
   <div>
     <div class="title">
-      <span class="name">Force [{force.count}] ({force.points})</span>
+      <span class="name">Force [{aggregator.formations}] ({aggregator.points})</span>
     </div>
 
     {#each force.formations as formation}

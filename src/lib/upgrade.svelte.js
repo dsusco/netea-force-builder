@@ -25,7 +25,11 @@ class Upgrade {
     return this.#name;
   }
 
-  get pointsString () {
+  get costNumber () {
+    return this.#costNumber;
+  }
+
+  get costString () {
     return this.#costString.split(',').shift();
   }
 }

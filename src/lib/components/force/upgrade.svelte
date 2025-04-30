@@ -1,13 +1,13 @@
 <script>
   let { name,
-        pointsString,
+        costString,
         removeUpgrade } = $props();
 </script>
 
 <div class="upgrade">
   <button class="remove" onclick={removeUpgrade} type="button">-</button>
   <span class="name">{name}</span>
-  <span class="points">({pointsString})</span>
+  <span class="points">({costString})</span>
 </div>
 
 <style lang="scss">

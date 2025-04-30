@@ -1,3 +1,4 @@
+import aggregators from '$lib/aggregators.svelte.js';
 import armyList from '$lib/army-list.svelte.js';
 import Upgrade from '$lib/upgrade.svelte.js';
 
@@ -18,17 +19,9 @@ class Formation {
 
   upgrades = $state([]);
 
-  count = $derived(this.upgrades.length);
+  aggregator = $derived(aggregators.forFormationInstance(this.id));
 
-  points = $derived.by(() => {
-    let points = +this.#cost;
-
-    for (const { points: upgradePoints } of this.upgrades) {
-      points += upgradePoints;
-    }
-
-    return points;
-  });
+  points = $derived(this.aggregator.points);
 
   get id () {
     return this.#id;

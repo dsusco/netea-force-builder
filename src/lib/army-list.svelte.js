@@ -48,8 +48,11 @@ class ArmyList {
   });
 
   name = $derived(this.#json.name);
+
   formationTypes = $derived(Object.keys(this.#json.formationTypes));
+
   formations = $derived(Object.keys(this.#json.formations));
+
   upgrades = $derived(Object.keys(this.#json.upgrades));
 
   set json (json) {

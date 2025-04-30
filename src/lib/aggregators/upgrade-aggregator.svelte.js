@@ -6,15 +6,9 @@ class UpgradeAggregator extends Aggregator {
     super(part);
   }
 
-  subjects = $derived.by(() => {
-    const subjects = [];
-
-    for (const { upgrades } of force.formations) {
-      subjects.push(...upgrades.filter(({ name }) => this.part.name === name));
-    }
-
-    return subjects;
-  });
+  subjects = $derived(force.formations
+                        .map(({ upgrades}) => upgrades.filter(({ name }) => this.part.name === name))
+                          .flat());
 }
 
 export default UpgradeAggregator;
