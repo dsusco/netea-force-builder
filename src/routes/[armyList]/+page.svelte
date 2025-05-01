@@ -18,7 +18,7 @@
 
   <div>
     <div class="title">
-      <span class="name">Force [{force.formationCount}] ({force.points})</span>
+      <span class="name">Force [{force.count}] ({force.points})</span>
     </div>
 
     {#each force.formations as formation}

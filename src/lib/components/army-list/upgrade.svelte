@@ -1,18 +1,20 @@
 <script>
   import aggregators from '$lib/aggregators.svelte.js';
   import armyList from '$lib/army-list.svelte.js';
+  import validations from '$lib/validations.svelte.js';
 
   let
     { name,
-      aggregator,
+      formationUpgradeAggregator,
       addUpgrade } = $props(),
     { costString } = armyList.upgrade(name),
-    forceAggregator = aggregators.forUpgrade(name);
+    aggregator = aggregators.forUpgrade(name),
+	invalid = $derived(!validations.forUpgrade(name).every(({ valid }) => valid));
 </script>
 
-<div class="upgrade">
+<div class="upgrade" class:-invalid={invalid}>
   <button class="add" onclick={addUpgrade} type="button">+</button>
-  <span class="name">{name} [{aggregator.count}] ({aggregator.points}) [{forceAggregator.count}] ({forceAggregator.points})</span>
+  <span class="name">{name} [{formationUpgradeAggregator.count}] ({formationUpgradeAggregator.points}) [{aggregator.count}] ({aggregator.points})</span>
   <span class="cost">({costString})</span>
 </div>
 
@@ -23,5 +25,9 @@
     > .name {
       flex: 1 1 auto;
     }
+	
+	&.-invalid {
+	  background: red;
+	}
   }
 </style>

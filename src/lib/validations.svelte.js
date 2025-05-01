@@ -1,16 +1,6 @@
-import aggregators from '$lib/aggregators.svelte.js';
 import armyList from '$lib/army-list.svelte.js';
+import ValidationClasses from '$lib/validation-classes.svelte.js';
 import Validation from '$lib/validations/validation.svelte.js';
-
-const ValidationClasses =
-  Object.entries(import.meta.glob('$lib/validations/*-validation.svelte.js', { eager: true }))
-    .reduce((validations, [url, module]) => {
-      url = url.split('/').pop().replace(/-validation\.svelte\.js$/, '');
-
-      validations[url.toLowerCase().replace(/-(\w)/g, (_, letter) => letter.toUpperCase())] = module.default;
-
-      return validations;
-    }, {});
 
 class Validations {
   #formationTypeValidations = $derived.by(() => {
@@ -18,10 +8,9 @@ class Validations {
 
     for (const name of armyList.formationTypes) {
       const formationType = armyList.formationType(name);
-	  
       formationTypeValidations[name] = formationType.validations
-	                                    .filter(({ scope }) => scope === undefined || scope === 'force')
-                                           .map((validation) => new Validation(validation, aggregators.for(formationType)));
+	                                    .filter(({ scope }) => scope === undefined)
+                                           .map((validation) => new ValidationClasses[validation.type](validation, formationType));
     }
 
     return formationTypeValidations;
@@ -34,8 +23,8 @@ class Validations {
       const formation = armyList.formation(name);
 	  
       formationValidations[name] = formation.validations
-	                                 .filter(({ scope }) => scope === undefined || scope === 'force')
-                                       .map((validation) => new Validation(validation, aggregators.for(formation)));
+	                                 .filter(({ scope }) => scope === undefined)
+                                       .map((validation) => new ValidationClasses[validation.type](validation, formation));
     }
 
     return formationValidations;
@@ -48,8 +37,8 @@ class Validations {
       const upgrade = armyList.upgrade(name);
 	  
       upgradeValidations[name] = upgrade.validations
-	                               .filter(({ scope }) => scope === undefined || scope === 'force')
-                                     .map((validation) => new Validation(validation, aggregators.for(upgrade)));
+	                               .filter(({ scope }) => scope === undefined)
+                                     .map((validation) => new ValidationClasses[validation.type](validation, upgrade));
     }
 
     return upgradeValidations;

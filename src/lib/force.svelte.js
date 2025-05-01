@@ -13,10 +13,14 @@ class Force {
 
   formations = $state([]);
 
-  formationCount = $derived(this.formations.length);
+  count = $derived(this.formations.length);
 
   points = $derived(this.formations.reduce((pointTotal, { points }) => pointTotal += points, 0));
 
+//  validations = $derived(this.#validations
+//	                       .filter(({ scope }) => scope === 'force')
+//                             .map((validation) => new ValidationClasses[validation.type](validation, this)));
+							 
   addFormation (name) {
     this.formations.push(new Formation(armyList.formation(name)));
   }

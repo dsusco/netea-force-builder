@@ -92,7 +92,8 @@
     "Battle Barge": {
       "cost": "+150",
       "validations": [
-        { "type": "comparison", "on": "count", "operator": "<=", "value": 1 }
+        { "type": "comparison", "on": "count", "operator": "<=", "value": 1 },
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Commander": {
@@ -103,41 +104,49 @@
         "supreme-commander": "+100"
       },
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Dreadnoughts": {
       "cost": "+50",
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Hunter": {
       "cost": "+75",
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Land Raiders": {
       "cost": ["+75", "+125"],
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Razorbacks": {
       "cost": "+25",
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Snipers": {
       "cost": "+10",
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Typhoons": {
       "cost": "+10",
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     },
     "Vindicators": {
       "cost": ["+50", "+75"],
       "validations": [
+        { "type": "comparison", "scope": "formationUpgrade", "on": "count", "operator": "<=", "value": 1 }
       ]
     }
   }

@@ -1,17 +1,25 @@
+import ValidationClasses from '$lib/validation-classes.svelte.js';
+
 class Upgrade {
   #id;
   #name;
   #validations;
   #costNumber;
   #costString;
+  #type;
+  #formationId;
 
-  constructor (upgrade) {
+  constructor (upgrade, formationId) {
     this.#id = crypto.randomUUID();
     this.#name = upgrade.name;
     this.#validations = upgrade.validations;
     this.#costNumber = upgrade.costNumber;
     this.#costString = upgrade.costString;
+    this.#type = upgrade.type;
+    this.#formationId = formationId;
   }
+  
+  formationUpgradeAggregator = $derived(force.formations[this.#formationId].upgradeAggregators[this.name]);
 
   points = $derived.by(() => {
     let points = this.costNumber;
@@ -20,8 +28,8 @@ class Upgrade {
   });
 
   validations = $derived(this.#validations
-	                       .filter(({ scope }) => scope === 'upgrade')
-                             .map((validation) => new Validation(validation, this)));
+						   .filter(({ scope }) => scope === 'upgrade')
+					         .map((validation) => new ValidationClasses[validation.type](validation, { name: this.name, type: this.#type, formationId: this.#formationId })));
 
   get id () {
     return this.#id;
