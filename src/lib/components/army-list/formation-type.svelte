@@ -5,8 +5,7 @@
 
   let
     { name } = $props(),
-    { formations,
-      type } = armyList.formationType(name),
+    { formations } = armyList.formationType(name),
     aggregator = aggregators.forFormationType(name)
 </script>
 

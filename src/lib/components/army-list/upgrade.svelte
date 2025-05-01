@@ -5,10 +5,8 @@
   let
     { name,
       aggregator,
-      disabled,
       addUpgrade } = $props(),
-    { costString,
-      type } = armyList.upgrade(name),
+    { costString } = armyList.upgrade(name),
     forceAggregator = aggregators.forUpgrade(name);
 </script>
 

@@ -1,6 +1,5 @@
-import aggregators from '$lib/aggregators.svelte.js';
-
 class Validation {
+<<<<<<< HEAD
   static ONS = ['points', 'count', 'formations', 'upgrades'];
 
   #on;
@@ -29,6 +28,15 @@ class Validation {
 
     return +value;
   }
+=======
+  #aggregator;
+
+  constructor (validation, aggregator) {console.log(validation, aggregator)
+    this.#aggregator = aggregator;
+  }
+
+  aggregator = $derived(this.#aggregator);
+>>>>>>> 7d82c859ff10d2466b4d14bef93a3cf3fd4586b8
 }
 
 export default Validation;
