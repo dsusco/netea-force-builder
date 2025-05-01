@@ -1,5 +1,5 @@
+import aggregators from '$lib/aggregators.svelte.js';
 import armyList from '$lib/army-list.svelte.js';
-import force from '$lib/force.svelte.js';
 import Validation from '$lib/validations/validation.svelte.js';
 
 const ValidationClasses =
@@ -13,37 +13,52 @@ const ValidationClasses =
     }, {});
 
 class Validations {
-  #formationTypeValidations = $derived(Object.fromEntries(armyList.formationTypes.map((name) => {
-    const formationType = armyList.formationType(name);
+  #formationTypeValidations = $derived.by(() => {
+    const formationTypeValidations = {};
 
-    return [name, formationType.validations.map((validation) => new Validation(validation, formationType))];
-  })));
+    for (const name of armyList.formationTypes) {
+      const formationType = armyList.formationType(name);
+	  
+      formationTypeValidations[name] = formationType.validations
+	                                    .filter(({ scope }) => scope === undefined || scope === 'force')
+                                           .map((validation) => new Validation(validation, aggregators.for(formationType)));
+    }
 
-  #formationValidations = $derived(Object.fromEntries(armyList.formations.map((name) => {
-    const formation = armyList.formation(name);
+    return formationTypeValidations;
+  });
+  
+  #formationValidations = $derived.by(() => {
+    const formationValidations = {};
 
-    return [name, formation.validations.map((validation) => new Validation(validation, formation))];
-  })));
+    for (const name of armyList.formations) {
+      const formation = armyList.formation(name);
+	  
+      formationValidations[name] = formation.validations
+	                                 .filter(({ scope }) => scope === undefined || scope === 'force')
+                                       .map((validation) => new Validation(validation, aggregators.for(formation)));
+    }
 
-  #upgradeValidations = $derived(Object.fromEntries(armyList.upgrades.map((name) => {
-    const upgrade = armyList.upgrade(name);
+    return formationValidations;
+  });
 
-    return [name, upgrade.validations.map((validation) => new Validation(validation, upgrade))];
-  })));
+  #upgradeValidations = $derived.by(() => {
+    const upgradeValidations = {};
 
-  #formationUpgradeValidations = $derived(Object.fromEntries(force.formations.map(({ id, allowedUpgrades }) =>
-    [ id,
-      Object.fromEntries(allowedUpgrades.map((name) => {
-        const upgrade = armyList.upgrade(name);
+    for (const name of armyList.upgrades) {
+      const upgrade = armyList.upgrade(name);
+	  
+      upgradeValidations[name] = upgrade.validations
+	                               .filter(({ scope }) => scope === undefined || scope === 'force')
+                                     .map((validation) => new Validation(validation, aggregators.for(upgrade)));
+    }
 
-        return [name, upgrade.validations.map((validation) => new Validation(validation, { parentId: id, ...upgrade }))] })) ]
-  )));
-
+    return upgradeValidations;
+  });
+  
   for (part) {
     if (part.type === 'formationType') return this.forFormationType(part.name);
     if (part.type === 'formation') return this.forFormation(part.name);
     if (part.type === 'upgrade') return this.forUpgrade(part.name);
-    if (part.type === 'formationUpgrade') return this.forFormationUpgrade(part.parentId, part.name);
   }
 
   forFormationType (formationTypeName) {
@@ -56,10 +71,6 @@ class Validations {
 
   forUpgrade (upgradeName) {
     return this.#upgradeValidations[upgradeName];
-  }
-
-  forFormationUpgrade (parentId, upgradeName) {
-    return this.#formationUpgradeValidations[parentId][upgradeName];
   }
 }
 

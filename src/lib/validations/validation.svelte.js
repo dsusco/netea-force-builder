@@ -1,13 +1,11 @@
-import aggregators from '$lib/aggregators.svelte.js';
-
 class Validation {
-  #part;
+  #aggregator;
 
-  constructor (validation, part) {
-    this.#part = part;
+  constructor (validation, aggregator) {console.log(validation, aggregator)
+    this.#aggregator = aggregator;
   }
 
-  aggregator = $derived(aggregators.for(this.#part));
+  aggregator = $derived(this.#aggregator);
 }
 
 export default Validation;
