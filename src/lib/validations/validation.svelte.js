@@ -9,6 +9,7 @@ class Validation {
   #scope;
   #value;
   #part;
+  
 
   constructor (validation, part) {
     this.#on = validation.on;
@@ -17,10 +18,8 @@ class Validation {
     this.#part = part;
   }
 
-  aggregator = $derived.by(() => {
-	return aggregators.for(this.#part);
-  });
-
+  aggregator = $derived(aggregators.for(this.#part));
+  
   aggregatorValue = $derived(this.aggregator[this.on]);
   
   normalizedValue = $derived.by(() => {
@@ -35,7 +34,7 @@ class Validation {
 	
 	return normalizedValue;
   });
-
+  
   get on () {
     return this.constructor.ONS.find((on) => this.#on === on) || this.constructor.ONS[0];
   }

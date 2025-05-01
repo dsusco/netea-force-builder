@@ -8,6 +8,7 @@ class Validations {
 
     for (const name of armyList.formationTypes) {
       const formationType = armyList.formationType(name);
+	  
       formationTypeValidations[name] = formationType.validations
 	                                    .filter(({ scope }) => scope === undefined)
                                            .map((validation) => new ValidationClasses[validation.type](validation, formationType));

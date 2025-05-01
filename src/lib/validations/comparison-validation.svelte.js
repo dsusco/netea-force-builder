@@ -27,31 +27,3 @@ class ComparisonValidation extends Validation {
 }
 
 export default ComparisonValidation;
-
-/*
-
-agg / scope <= value
-
-agg <= value * scope
-
-  validWith (mutations) {
-    let
-      valid = false,
-      aggregatorValue = this.aggregator[this.on] + +mutations[this.on],
-      relativeToValue = this.value;
-
-    if (this.relativeTo === force) {
-      if (this.value < 1) {
-        relativeToValue *= this.relativeTo[this.on] + +mutations[this.on];
-      }
-    } else {
-      relativeToValue *= this.relativeTo[this.on];
-    }
-
-    if (this.operator === '<=') {
-      valid = aggregatorValue <= relativeToValue;
-    }
-
-    return valid;
-  };
-*/
