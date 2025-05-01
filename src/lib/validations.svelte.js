@@ -13,38 +13,69 @@ const ValidationClasses =
     }, {});
 
 class Validations {
-  #formationTypeValidations = $derived(Object.fromEntries(armyList.formationTypes.map((name) => {
-    const formationType = armyList.formationType(name);
+  #formationTypeValidations = $derived.by(() => {
+    const formationTypeValidations = {};
 
-    return [name, formationType.validations.map((validation) => new Validation(validation, formationType))];
-  })));
+    for (const name of armyList.formationTypes) {
+      const formationType = armyList.formationType(name);
 
-  #formationValidations = $derived(Object.fromEntries(armyList.formations.map((name) => {
-    const formation = armyList.formation(name);
+      formationTypeValidations[name] = formationType.validations.map((validation) => new Validation(validation, formationType));
+    }
 
-    return [name, formation.validations.map((validation) => new Validation(validation, formation))];
-  })));
+    return formationTypeValidations;
+  });
 
-  #upgradeValidations = $derived(Object.fromEntries(armyList.upgrades.map((name) => {
-    const upgrade = armyList.upgrade(name);
+  #formationValidations = $derived.by(() => {
+    const formationValidations = {};
 
-    return [name, upgrade.validations.map((validation) => new Validation(validation, upgrade))];
-  })));
+    for (const name of armyList.formations) {
+      const formation = armyList.formation(name);
 
-  #formationUpgradeValidations = $derived(Object.fromEntries(force.formations.map(({ id, allowedUpgrades }) =>
-    [ id,
-      Object.fromEntries(allowedUpgrades.map((name) => {
+      formationValidations[name] = formation.validations.map((validation) => new Validation(validation, formation));
+    }
+
+    return formationValidations;
+  });
+
+  #upgradeValidations = $derived.by(() => {
+    const upgradeValidations = {};
+
+    for (const name of armyList.upgrades) {
+      const upgrade = armyList.upgrade(name);
+
+      upgradeValidations[name] = upgrade.validations.map((validation) => new Validation(validation, upgrade));
+    }
+
+    return upgradeValidations;
+  });
+
+  #formationInstanceValidations = $derived.by(() => {
+    const formationInstanceValidations = {};
+
+    for (const { id, name } of force.formations) {
+      const formation = armyList.formation(name);
+
+      formationInstanceValidations[id] = formation.validations.map((validation) => new Validation(validation, { id, ...formation }));
+    }
+
+    return formationInstanceValidations;
+  });
+
+  #formationUpgradeValidations = $derived.by(() => {
+    const formationUpgradeValidations = {};
+
+    for (const { id, allowedUpgrades } of force.formations) {
+      formationUpgradeValidations[id] = {};
+
+      for (const name of allowedUpgrades) {
         const upgrade = armyList.upgrade(name);
 
-        return [name, upgrade.validations.map((validation) => new Validation(validation, { parentId: id, ...upgrade }))] })) ]
-  )));
+        upgradeValidations[name] = upgrade.validations.map((validation) => new Validation(validation, { parentId: id, ...upgrade }));
+      }
+    }
 
-  for (part) {
-    if (part.type === 'formationType') return this.forFormationType(part.name);
-    if (part.type === 'formation') return this.forFormation(part.name);
-    if (part.type === 'upgrade') return this.forUpgrade(part.name);
-    if (part.type === 'formationUpgrade') return this.forFormationUpgrade(part.parentId, part.name);
-  }
+    return formationUpgradeValidations;
+  });
 
   forFormationType (formationTypeName) {
     return this.#formationTypeValidations[formationTypeName];
@@ -56,6 +87,10 @@ class Validations {
 
   forUpgrade (upgradeName) {
     return this.#upgradeValidations[upgradeName];
+  }
+
+  forFormationInstance (id) {
+    return this.#formationInstanceValidations[id];
   }
 
   forFormationUpgrade (parentId, upgradeName) {

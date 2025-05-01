@@ -11,7 +11,10 @@ class FormationInstanceAggregator extends Aggregator {
 
   count = undefined;
 
-  subjects = $derived(force.formations.find(({ id }) => this.#id === id).upgrades);
+  subjects = $derived.by(() => {
+    console.log(force.formations.map(({ id }) => id ));
+    return force.formations.find(({ id }) => this.#id === id).upgrades
+  });
 
   upgrades = $derived(this.subjects.length);
 
